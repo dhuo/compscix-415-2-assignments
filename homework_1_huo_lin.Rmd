@@ -18,11 +18,23 @@ glimpse(WorldCities)
 WorldCities<-head(WorldCities,200)
 country_col <- WorldCities$country
 unique(country_col)
-country_col <-select(WorldCities,country)
-country_col <-WorldCities %>% select(country)
+
 region_col <-WorldCities$region
 unique(region_col)
 
+country_col <-select(WorldCities,country)
+country_col <-WorldCities %>% select(country) 
+
+WorldCities %>% select(country) %>% unique()
+#Visualize
+WorldCities %>% ggplot(aes(x=population))+
+  geom_histogram()
+
+WorldCities %>% ggplot(aes(x=population))+geom_histogram()+xlab('City Population')
 ```
  
+Question 1: How many observations and variables are there in this data set? What are some of the variable names?
+Answer: 23081 entries, 
+Code, Name, Latitude etc.
+
 
