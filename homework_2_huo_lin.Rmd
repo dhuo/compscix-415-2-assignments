@@ -1,0 +1,116 @@
+
+---
+title: "R Notebook"
+output: html_notebook
+editor_options: 
+
+chunk_output_type: inline
+---
+
+#3.2.4 Exercise 
+## 1.Run ggplot(data = mpg). What do you see?
+### Answer: it is blank
+## 2.How many rows are in mpg? How many columns?
+### Answer: 234 rows 11 columns
+## 3. What does the drv variable describe? Read the help for ?mpg to find out.
+### Answer: f= front-wheel drive, r = rear wheel drive, 4 = 4wd
+## 4.Make a scatterplot of hwy vs cyl.
+### see below
+## What happens if you make a scatterplot of class vs drv? Why is the plot not useful?
+### Both are categorical data, they are not continuous data points.Not useful for plotting, basically looks like a table.
+
+```{r}
+ggplot(data=mpg)
+nrow(mpg)
+ncol(mpg)
+?mpg
+ggplot(mpg,aes(hwy,cyl))+geom_point()+
+  xlab("hwy")
+
+ggplot(mpg,aes(class,drv))+geom_point()+
+  xlab("drv")
+
+ggplot(data = mpg, mapping = aes(x = drv)) + 
+  geom_bar(mapping = aes(fill = class),position = "dodge") +
+  coord_flip()+
+  xlab("Drive Of Vehicle")
+```
+
+# 3.3.1 Exercises
+## 1.What’s gone wrong with this code? Why are the points not blue?
+### Answer: The color command should be specified under Geom_point() instead of aes()
+## 2.Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?
+### Answer: it would be the data type that is not int, like, manufacterer, model,trans, drv, fl, class.
+## 3.Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?
+### Answer: see below
+## 4.What happens if you map the same variable to multiple aesthetics?
+### Answer: it does not seem necessary to have same variable mapped to mutiplea aesthetics, as one is enough to represent the variable
+## 5.What does the stroke aesthetic do? What shapes does it work with? (Hint: use ?geom_point)
+### Stroke represents the border size of the point, the shape works with continuous variable.
+## 6.What happens if you map an aesthetic to something other than a variable name, like aes(colour = displ < 5)? Note, you’ll also need to specify x and y.
+### it become a true or false statement for the condition
+
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color ="blue")
+head(mpg)
+
+## Map hwy to color
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color =class))
+## Map 
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size =class))
+##Shape
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape =class))
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape =class, color =class))
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, stroke=displ))
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, colour=displ))
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, colour=displ<5))
+
+```
+
+
+# 3.5.1 Exercises
+## 1.What happens if you facet on a continuous variable?
+### Answer: It end up plotting every single data point and looks really busy.
+## 2.What do the empty cells in plot with facet_grid(drv ~ cyl) mean? How do they relate to this plot?
+### Answer: it means there is no data point fall under that combination drv~cyl, the second graph is basically a plot of the first graph, each small dot represent for a chart.
+## 4.Take the first faceted plot in this section:
+### Answer: 
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ hwy, nrow = 2)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl))
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
