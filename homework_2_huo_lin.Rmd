@@ -1,11 +1,12 @@
 
 ---
-title: "R Notebook"
-output: html_notebook
-editor_options: 
-
-chunk_output_type: inline
+title: "COMPSCIX 415.2 Homework 2"
+author: "Lin"
+date: "2/19/2019"
+output: html_document 
 ---
+My Github repository for my assignments can be found at this URL: [https://github.com/dhuo/compscix-415-2-assignments.git](https://github.com/dhuo/compscix-415-2-assignments.git)
+
 
 #3.2.4 Exercise 
 ## 1.Run ggplot(data = mpg). What do you see?
@@ -20,6 +21,7 @@ chunk_output_type: inline
 ### Both are categorical data, they are not continuous data points.Not useful for plotting, basically looks like a table.
 
 ```{r}
+library(ggplot2)
 ggplot(data=mpg)
 nrow(mpg)
 ncol(mpg)
@@ -108,9 +110,5 @@ ggplot(data = mpg) +
   facet_wrap(~ class, nrow = 2)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
