@@ -1,0 +1,143 @@
+---
+title: "COMPSCIX 415.2 Homework 5/Midterm Dinglin Huo 2019/03/05"
+author: "Dinglin Huo"
+date: "March 5,2019"
+output: 
+  html_document:
+    toc: true
+    theme: united
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## RStudio and R Markdown (3 points)
+
+
+## The tidyverse packages (3 points)
+### 1.Can you name which package is associated with each task below?
+Plotting - ggplot
+Data munging/wrangling -- dplyr and tidyr 
+Reshaping (speading and gathering) data -dplyr
+Importing/exporting data - readr
+
+### 2.Now can you name two functions that you’ve used from each package that you listed above for these tasks?
+Plotting - geom_bar() geom_point()
+Data munging/wrangling - filter() summarize()
+Reshaping data - gather() spread()
+Importing/exporting data - read_csv() write_csv()
+
+## R Basics (1.5 points)
+### 1.Fix this code with the fewest number of changes possible so it works:
+
+```{r}
+my_data <- c(1,2,3)
+my_data
+```
+### 2.Fix this code so it works:
+
+```{r}
+my_string <- c("has","an", "error","in", "it")
+my_string
+```
+
+### 2.Look at the code below and comment on what happened to the values in the vector:
+It turned all the value to varchar
+```{r}
+my_vector <- c(1, 2, '3', '4', 5)
+my_vector
+```
+
+## Data import/export (3 points)
+### 1.Download the rail_trail.txt file from Canvas (in the Midterm Exam section) and successfully import it into R. Prove that it was imported successfully by including your import code and taking a glimpse of the result.
+
+
+### 2.Export the file into a comma-separated file and name it “rail_trail.csv”. Make sure you define the path correctly so that you know where it gets saved. Then reload the file. Include your export and import code and take another glimpse.
+
+```{r, include=TRUE}
+library(tidyverse)
+file_path <- 'rail_trail.txt'
+text_data <-read.delim(file_path)
+glimpse(text_data)
+write_delim(text_data,delim=',', path ='rail_trail.csv')
+
+```
+
+
+
+## Visualization (6 points)
+### 1.Critique this graphic: give only three examples of what is wrong with this graphic. Be concise.
+Answer: 
+1.each row is supose to be an age category, the total horizontally doesnt add up to 100, which is quite confusing.
+2. the Yes and No coloumn, only one is enough.
+3.coloring seems off, age groups is not coloured at all, while genders are colored.
+
+### 2.Reproduce this graphic using the diamonds data set.
+```{r}
+ggplot(data= diamonds ,mapping = aes(x= cut, y =carat ) )+
+  geom_boxplot()+
+  coord_flip()+
+    xlab("CARAT OF DIAMOND") + ylab("CUT OF DIAMOND")
+
+```
+
+
+### 3.The previous graphic is not very useful. We can make it much more useful by changing one thing about it. Make the change and plot it again.
+```{r}
+ggplot(data= diamonds ,mapping = aes(x= cut, y =carat,fill= color) )+
+  geom_boxplot()+
+  coord_flip()+
+  xlab("CARAT OF DIAMOND") + ylab("CUT OF DIAMOND")
+```
+
+## Data munging and wrangling (6 points)
+### 1.Is this data “tidy”? If yes, leave it alone and go to the next problem. If no, make it tidy. Note: this data set is called table2 and is available in the tidyverse package. It should be ready for you to use after you’ve loaded the tidyverse package.
+Yes
+
+### 2.Create a new column in the diamonds data set called price_per_carat that shows the price of each diamond per carat (hint: divide). Only show me the code, not the output.
+
+
+### 3.For each cut of diamond in the diamonds data set, how many diamonds, and what proportion, have a price > 10000 and a carat < 1.5? There are several ways to get to an answer, but your solution must use the data wrangling verbs from the tidyverse in order to get credit.
+Do the results make sense? Why?
+Do we need to be wary of any of these numbers? Why?
+
+## EDA (6 points)
+
+### 1.During what time period is this data from?
+2000-2015
+### 2.How many cities are represented?
+46
+### 3.Which city, month and year had the highest number of sales?
+Houston 2015 
+### 4.What kind of relationship do you think exists between the number of listings and the number of sales? Check your assumption and show your work.
+Positive correlation
+```{r}
+library(ggplot2)
+
+ggplot(data = txhousing, mapping=aes(x=listings, y=sales, color=city))+
+ geom_point()
+
+
+ggplot(data = txhousing) + 
+  geom_density(mapping = aes(x = sales), adjust = 2)
+
+```
+
+### 5.What proportion of sales is missing for each city?
+Sales more than 2500
+### 6.Looking at only the cities and months with greater than 500 sales:
+ Are the distributions of the median sales price (column name median), when grouped by city, different? The same? Show your work.
+```{r}
+ggplot(data = txhousing) +
+  geom_boxplot(mapping = aes(x = city, y =sales ))
+```
+ 
+ Any cities that stand out that you’d want to investigate further?
+ 
+ Why might we want to filter out all cities and months with sales less than 500?
+
+## Git and Github (1.5 points)
+To demonstrate your use of git and Github, at the top of your document put a hyperlink to your Github repository.
+
+Once you are finished with your midterm, commit your final changes with the comment “finished the midterm - woohoo” and push your R Markdown file and your html or pdf file to Github.
+
